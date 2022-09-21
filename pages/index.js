@@ -7,15 +7,48 @@ import Navbar from '../components/Navbar'
 
 export default function Home() {
 
-  let apiKey = '26f8c8b54b275db0e248ea96af630bb6'
+  const apiKey = '26f8c8b54b275db0e248ea96af630bb6'
 
-  const [zipcode, setZipcode] = useState([]);
+  const [zipcode, setZipcode] = useState([23220]);
+  const [todaysweather, setWeather] = useState([]);
 
-  const displayTodaysWeather = async () => {
-    const response = await fetch('http://api.openweathermap.org/geo/1.0/zip?zip=23220,US&appid=' + apiKey)
+
+  const getLatitudeLongitude = async () => {
+    const response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`)
     const data = await response.json()
+    const latitude = data.lat
+    const longitude = data.lon
+    console.log(latitude)
+    console.log(longitude)
     setZipcode(data)
+    return { latitude, longitude }
+  }
 
+  const DisplayTodaysWeather = async(props) => {
+    const latitude = props.latitude
+    const longitude = props.longitude
+
+    // Template String here to replace latitude, longitude, and apiKey with variables
+    const response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+    const data = await response.json()
+    const weatherForecastResult = data.list
+
+    // Format of the Array
+    // [Time in EST, ]
+    const formattedForecast = []
+    for (let i = 0; i < weatherForecastResult.length; i++)
+    {
+      let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
+      formattedForecast[i] = [
+        localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
+        weatherForecastResult[i].main.temp,
+        weatherForecastResult[i].main.humidity,
+        weatherForecastResult[i].weather[0].id,
+        weatherForecastResult[i].weather[0].description,
+      ]
+    }
+
+    setWeather(formattedForecast)
   }
 
   return (
@@ -30,8 +63,13 @@ export default function Home() {
           value={zipcode}
           onChange={(newComment) => setZipcode(newComment.target.value)}
           />
-        <button onClick={displayTodaysWeather}>Submit</button>
+        <button onClick={() => {
+          getLatitudeLongitude().then((data) => {
+            DisplayTodaysWeather(data)
+          }
+        )}}>Submit</button>
         <p> { JSON.stringify(zipcode) } </p>
+        <p> { JSON.stringify(todaysweather)} </p>
       </div>
     </div>
   )
