@@ -15,12 +15,15 @@ a {
   box-sizing: border-box;
 }
 
+/* @media acts as a dynamic way to manipulate pages
+   in this code below the program checks IF the user's computer is set to dark mode
+   and then all the selectors beneath it will be affected and used*/
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
-    color: white;
-    background: black;
+    color: black;
+    background: #E0FBFC;
   }
 }
