@@ -29,12 +29,13 @@ export default function Home() {
     const longitude = props.longitude
 
     // Template String here to replace latitude, longitude, and apiKey with variables
+    // Fetch the 5-day / 3 Hour forecast data
     const response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
     const data = await response.json()
-    const weatherForecastResult = data.list
+    const weatherForecastResult = data.list // Grab the list of the 5-day / 3 Hour forecast
 
     // Format of the Array
-    // [Time in EST, ]
+    // [Time in EST, temperature, humidity, weather id, weather description]
     const formattedForecast = []
     for (let i = 0; i < weatherForecastResult.length; i++)
     {
