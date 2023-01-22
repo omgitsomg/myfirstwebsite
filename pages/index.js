@@ -7,9 +7,9 @@ import Navbar from '../components/Navbar'
 
 export default function Home() {
 
-  const apiKey = '26f8c8b54b275db0e248ea96af630bb6'
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-  const [zipcode, setZipcode] = useState([23220]);
+  const [zipcode, setZipcode] = useState([]);
   const [todaysweather, setWeather] = useState([]);
 
 
@@ -57,11 +57,10 @@ export default function Home() {
       <Navbar></Navbar>
       <div className={ styles.body }>
         <p className={ styles.title }>Weather Forecasting Tool</p>
-        <label>Zipcode:</label>
         <input 
           type="text" 
-          id="zipcode" 
-          value={zipcode}
+          id="zipcode"
+          placeholder="Enter a Zipcode"
           onChange={(newComment) => setZipcode(newComment.target.value)}
           />
         <button onClick={() => {
@@ -69,7 +68,6 @@ export default function Home() {
             DisplayTodaysWeather(data)
           }
         )}}>Submit</button>
-        <p> { JSON.stringify(zipcode) } </p>
         <p> { JSON.stringify(todaysweather)} </p>
       </div>
     </div>
