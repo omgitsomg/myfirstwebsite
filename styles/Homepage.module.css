@@ -10,3 +10,9 @@
     font-size: 1.5em;
     align-items: center;
 }
+
+.detailContainer {
+    display: flex;
+    justify-content: center;
+    background-color: yellowgreen;
+}

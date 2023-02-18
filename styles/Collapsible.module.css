@@ -1,0 +1,24 @@
+.detailStyle {
+    cursor: pointer; /* Hovering over the detail causes cursor to be a pointer */
+}
+
+.summaryStyle {
+    list-style: none; /* list-style works on the summary tag not the detail tag */
+    font-size: 1.75rem;
+}
+
+/* Older browser support */
+.summaryStyle::marker {
+    display: none;
+}
+
+.summaryStyle::after {
+    content: "+";
+    position: absolute;
+}
+
+
+/* https://stackoverflow.com/questions/16858926/class-names-concatenated-or-separated-by-a-space */
+.detailStyle[open] .summaryStyle:after {
+    content: "-";
+}

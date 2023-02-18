@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Homepage.module.css'
 import Navbar from '../components/Navbar'
+import Collapsible from '../components/Collapsible'
 
 export default function Home() {
 
@@ -11,9 +12,10 @@ export default function Home() {
 
   const [zipcode, setZipcode] = useState([]);
   const [todaysweather, setWeather] = useState([]);
+  const [buttonActive, setButton] = useState(false)
 
 
-  const getLatitudeLongitude = async () => {
+  async function getLatitudeLongitude() {
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`)
     const data = await response.json()
     const latitude = data.lat
@@ -49,7 +51,9 @@ export default function Home() {
       ]
     }
 
+    // todays weather is a 2D array
     setWeather(formattedForecast)
+    console.log(todaysweather)
   }
 
   return (
@@ -66,10 +70,21 @@ export default function Home() {
         <button onClick={() => {
           getLatitudeLongitude().then((data) => {
             DisplayTodaysWeather(data)
+            setButton(true)
+            
           }
         )}}>Submit</button>
-        <p> { JSON.stringify(todaysweather)} </p>
       </div>
+      {/* <p>{ todaysweather }</p> */}
+      { 
+        buttonActive &&
+        <div className={ styles.detailContainer }>
+          <Collapsible data={ todaysweather }/>
+        </div>
+      }
+      {/* { JSON.stringify(todaysweather).map((threeHourDay) => {
+        
+      })} */}
     </div>
   )
 }
