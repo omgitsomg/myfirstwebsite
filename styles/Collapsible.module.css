@@ -1,5 +1,6 @@
 .detailStyle {
     cursor: pointer; /* Hovering over the detail causes cursor to be a pointer */
+    background-color: #9DB4C0;
 }
 
 .summaryStyle {

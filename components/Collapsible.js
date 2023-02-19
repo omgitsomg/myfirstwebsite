@@ -12,7 +12,7 @@ const Collapsible = (props) => {
                 <details className={ styles.detailStyle }>
                     <summary className={ styles.summaryStyle }>{ item[0] }</summary>
                     <p> { item } </p>
-                    <i class="wi wi-day-sunny"></i>
+                    <i class={ "wi wi-owm-" + (item[3]).toString()}></i>
                 </details>
             ))}
         </div>
