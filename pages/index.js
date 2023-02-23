@@ -41,6 +41,7 @@ export default function Home() {
     const formattedForecast = []
     for (let i = 0; i < weatherForecastResult.length; i++)
     {
+
       let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
       formattedForecast[i] = [
         localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
@@ -49,6 +50,7 @@ export default function Home() {
         weatherForecastResult[i].weather[0].id,
         weatherForecastResult[i].weather[0].description,
       ]
+      
     }
 
     // todays weather is a 2D array

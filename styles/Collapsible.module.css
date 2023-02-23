@@ -1,11 +1,19 @@
 .detailStyle {
     cursor: pointer; /* Hovering over the detail causes cursor to be a pointer */
     background-color: #9DB4C0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 .summaryStyle {
     list-style: none; /* list-style works on the summary tag not the detail tag */
     font-size: 1.75rem;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 /* Older browser support */
@@ -18,8 +26,20 @@
     position: absolute;
 }
 
+.summaryStyle:hover {
+    background-color: #b0d0d4;
+}
+
+.detailStyle:hover {
+    background-color: #b0d0d4;
+}
+
 
 /* https://stackoverflow.com/questions/16858926/class-names-concatenated-or-separated-by-a-space */
 .detailStyle[open] .summaryStyle:after {
     content: "-";
+}
+
+.iconStyle {
+    font-size: 7em;
 }
