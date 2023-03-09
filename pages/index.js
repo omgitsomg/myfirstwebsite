@@ -5,6 +5,7 @@ import Image from 'next/image'
 import styles from '../styles/Homepage.module.css'
 import Navbar from '../components/Navbar'
 import Collapsible from '../components/Collapsible'
+import { Input } from '@chakra-ui/react'
 
 export default function Home() {
 
@@ -63,11 +64,13 @@ export default function Home() {
       <Navbar></Navbar>
       <div className={ styles.body }>
         <p className={ styles.title }>Weather Forecasting Tool</p>
-        <input 
+        <Input
+          variant="outline"
           type="text" 
           id="zipcode"
           placeholder="Enter a Zipcode"
           onChange={(newComment) => setZipcode(newComment.target.value)}
+          size="md"
           />
         <button onClick={() => {
           getLatitudeLongitude().then((data) => {
