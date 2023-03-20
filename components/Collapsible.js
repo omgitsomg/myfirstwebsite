@@ -1,33 +1,33 @@
+import { Card, CardBody, CardHeader, Heading, SimpleGrid } from '@chakra-ui/react';
 import styles from '../styles/Collapsible.module.css'
 
 const Collapsible = (props) => {
-    for(let i = 0; i < props.data.length; i++)
-    {
-        console.log(props.data[i])
-    }
+
+    // time: (MM/DD/YYYY), 00:00 AM/PM;
+    // temp;
+    // humidity;
+    // weatherid;
+    // weatherdescription
 
     return (
-        <div>
-            {props.data.map(item => (
-                <details className={ styles.detailStyle }>
-                    {/*  item list
-                    {
-                        time: (MM/DD/YYYY), 00:00 AM/PM ;
-                        temp;
-                        humidity;
-                        weatherid;
-                        weatherdescription
-                    } */}
-                    <summary className={ styles.summaryStyle }>{ item[0] }</summary> 
-                    <i className={ `wi wi-owm-` + (item[3]).toString() + ` ${ styles.iconStyle }`}></i>
+        <div className={ styles.container }>
+            <Card size="sm" width="max-content">
+                <CardHeader>
+                    <Heading size="lg"> { props.date } </Heading>
+                </CardHeader>
+                <CardBody
+                    direction={{ base: 'column', sm: 'row' }}
+                    overflow="hidden"
+                >
+                    <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ${ styles.iconStyle }`}></i>
                     <div>
-                        <p>Temperature: { item[1] } </p>
-                        <p>Humidity: { item[2] } </p>
-                        <p>Weather description: { item[4] } </p>
+                        <p>Temperature: { props.temperature } </p>
+                        <p>Humidity: { props.humidity } </p>
+                        <p>Weather description: { props.weather_desc } </p>
+                        <Card></Card>
                     </div>
-                    
-                </details>
-            ))}
+                </CardBody>
+            </Card>
         </div>
     );
 

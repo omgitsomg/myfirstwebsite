@@ -1,19 +1,16 @@
-.body {
+.top {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color: #c2dfe3;
+    padding: 2rem;
+}
+
+.detailContainer {
 }
 
 .title {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.5em;
-    align-items: center;
 }
 
-.detailContainer {
-    display: flex;
-    justify-content: center;
-    background-color: #253237;
-}
