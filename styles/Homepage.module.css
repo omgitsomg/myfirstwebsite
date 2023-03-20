@@ -7,6 +7,9 @@
 }
 
 .detailContainer {
+    border-width: 2px;
+    border-color: aquamarine;
+    width: fit-content;
 }
 
 .title {
