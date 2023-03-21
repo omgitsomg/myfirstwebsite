@@ -48,12 +48,12 @@ export default function Home() {
         weatherForecastResult[i].weather[0].id,
         weatherForecastResult[i].weather[0].description,
       ]
-      
+      console.log(localFormattedTime)
     }
 
     // todays weather is a 2D array
     setWeather(formattedForecast)
-    console.log(todaysweather)
+    
   }
 
   return (
@@ -78,7 +78,7 @@ export default function Home() {
         </button>
         
       </div>
-      <SimpleGrid columns={3} spacing={12} padding="2rem">
+      <SimpleGrid columns={4} spacing={12} padding="2rem">
         {
           todaysweather.map(item => (
             <Collapsible date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />

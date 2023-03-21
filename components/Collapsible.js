@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Heading, SimpleGrid, Stack, Divider, CardFooter, ButtonGroup, Button, Image, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, HStack, VStack, StackDivider, Divider} from '@chakra-ui/react';
 import styles from '../styles/Collapsible.module.css'
 
 const Collapsible = (props) => {
@@ -9,22 +9,26 @@ const Collapsible = (props) => {
     // weatherid;
     // weatherdescription
 
+    var kelvinToFahrenheit = (props.temperature - 273.15) * (9/5) + 32;
+    kelvinToFahrenheit = kelvinToFahrenheit.toFixed(0);
+
     return (
-        <Card maxW="sm">
+        <Card>
             <CardHeader>
                 <Heading size="lg"> { props.date } </Heading>
             </CardHeader>
-            <CardBody
-                direction={{ base: 'column', sm: 'row' }}
-                overflow="hidden"
-            >
-                <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ${ styles.iconStyle }`}></i>
-                <div>
-                    <p>Temperature: { props.temperature } </p>
-                    <p>Humidity: { props.humidity } </p>
-                    <p>Weather description: { props.weather_desc } </p>
-                    <Card></Card>
-                </div>
+            <Divider />
+            <CardBody>
+                <HStack divider={<StackDivider borderColor='gray.500' />}>
+                    <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ${ styles.iconStyle }`}></i>
+                    <VStack align="flex-start"
+                        divider={<StackDivider borderColor='gray.500' />}>
+                        <p>Temperature: { kelvinToFahrenheit } </p>
+                        <p>Humidity: { props.humidity } </p>
+                        <p>Weather description: { props.weather_desc } </p>
+                        <Card></Card>
+                    </VStack>
+                </HStack>
             </CardBody>
         </Card>
     );
