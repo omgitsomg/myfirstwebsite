@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Heading, HStack, VStack, StackDivider, Divider, Text} from '@chakra-ui/react';
-import styles from '../styles/Collapsible.module.css'
+import styles from '../styles/WeatherCard.module.css'
 
-const Collapsible = (props) => {
+const WeatherCard = (props) => {
 
     // time: (MM/DD/YYYY), 00:00 AM/PM;
     // temp;
@@ -33,7 +33,7 @@ const Collapsible = (props) => {
             break;
         case fahrenheit < 75:
             redOpacity = 300;
-            blueOpacity = 100;
+            blueOpacity = 200;
             break;
         case fahrenheit < 85:
             redOpacity = 400;
@@ -59,14 +59,14 @@ const Collapsible = (props) => {
                         <Text>Temperature: { fahrenheit } </Text>
                         <Text>Humidity: { props.humidity } </Text>
                         <Text>Weather description: { props.weather_desc } </Text>
-                        <Card></Card>
                     </VStack>
                 </HStack>
             </CardBody>
         </Card>
     );
-
-    
 }
 
-export default Collapsible;
+// <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ${ styles.iconStyle }`}></i>
+// This is used for added to styles to a single tag "style1 style2"
+
+export default WeatherCard;

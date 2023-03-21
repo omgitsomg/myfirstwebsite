@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import styles from '../styles/Homepage.module.css'
-import Collapsible from '../components/Collapsible'
-import { Input, SimpleGrid, Card, CardBody, CardHeader, Heading, Stack, Divider, CardFooter, ButtonGroup, Button, Image, Text } from '@chakra-ui/react';
+import WeatherCard from '../components/WeatherCard'
+import { Input, SimpleGrid, Heading} from '@chakra-ui/react';
 
 export default function Home() {
 
@@ -59,7 +59,7 @@ export default function Home() {
   return (
     <div>
       <div className={ styles.top }>
-        <p className={ styles.title }>Weather Forecasting Tool</p>
+        <Heading className={ styles.title }>Weather Forecasting Tool</Heading>
         <Input
           variant="outline"
           type="text" 
@@ -78,13 +78,17 @@ export default function Home() {
         </button>
         
       </div>
-      <SimpleGrid columns={5} spacing={6} padding="4rem 16em" bg="gray.200">
+      {
+        buttonActive &&
+        <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
         {
           todaysweather.map(item => (
-            <Collapsible date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
+            <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
           ))
         }
-      </SimpleGrid>
+        </SimpleGrid>
+      }
+      
     </div>
   )
 }
