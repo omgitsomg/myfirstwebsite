@@ -78,7 +78,7 @@ export default function Home() {
         </button>
         
       </div>
-      <SimpleGrid columns={4} spacing={12} padding="2rem">
+      <SimpleGrid columns={5} spacing={6} padding="4rem 16em" bg="gray.200">
         {
           todaysweather.map(item => (
             <Collapsible date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />

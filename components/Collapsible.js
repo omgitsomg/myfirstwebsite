@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Heading, HStack, VStack, StackDivider, Divider} from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, HStack, VStack, StackDivider, Divider, Text} from '@chakra-ui/react';
 import styles from '../styles/Collapsible.module.css'
 
 const Collapsible = (props) => {
@@ -15,27 +15,27 @@ const Collapsible = (props) => {
     var redOpacity = 0;
     var blueOpacity = 0;
     switch(true) {
-        case fahrenheit < 30:
+        case fahrenheit < 35:
             redOpacity = 100;
             blueOpacity = 400;
             break;
-        case fahrenheit < 40:
+        case fahrenheit < 45:
             redOpacity = 100;
             blueOpacity = 300;
             break;
-        case fahrenheit < 50:
+        case fahrenheit < 55:
             redOpacity = 100;
             blueOpacity = 200;
             break;
-        case fahrenheit < 60:
+        case fahrenheit < 65:
             redOpacity = 200;
             blueOpacity = 200;
             break;
-        case fahrenheit < 70:
+        case fahrenheit < 75:
             redOpacity = 300;
             blueOpacity = 100;
             break;
-        case fahrenheit < 80:
+        case fahrenheit < 85:
             redOpacity = 400;
             blueOpacity = 100;
             break;
@@ -48,17 +48,17 @@ const Collapsible = (props) => {
     return (
         <Card boxShadow="xl" bgGradient={`linear(to-br, red.${redOpacity}, blue.${blueOpacity})`}>
             <CardHeader>
-                <Heading size="lg"> { props.date } </Heading>
+                <Heading size="md"> { props.date } </Heading>
             </CardHeader>
-            <Divider />
+            <Divider borderColor='black'/>
             <CardBody>
-                <HStack divider={<StackDivider borderColor='gray.500' />}>
+                <HStack divider={<StackDivider borderColor='black' />}>
                     <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ${ styles.iconStyle }`}></i>
                     <VStack align="flex-start"
-                        divider={<StackDivider borderColor='gray.500' />}>
-                        <p>Temperature: { fahrenheit } </p>
-                        <p>Humidity: { props.humidity } </p>
-                        <p>Weather description: { props.weather_desc } </p>
+                        divider={<StackDivider borderColor='black' />}>
+                        <Text>Temperature: { fahrenheit } </Text>
+                        <Text>Humidity: { props.humidity } </Text>
+                        <Text>Weather description: { props.weather_desc } </Text>
                         <Card></Card>
                     </VStack>
                 </HStack>
