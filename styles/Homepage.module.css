@@ -6,6 +6,10 @@
     padding: 2rem;
 }
 
+.buttonWrapper {
+    padding-top: 1.5rem;
+}
+
 .detailContainer {
     border-width: 2px;
     border-color: aquamarine;

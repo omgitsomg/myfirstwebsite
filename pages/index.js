@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import styles from '../styles/Homepage.module.css'
 import WeatherCard from '../components/WeatherCard'
-import { Input, SimpleGrid, Heading} from '@chakra-ui/react';
+import { Input, SimpleGrid, Heading, Button} from '@chakra-ui/react';
 
 export default function Home() {
 
@@ -32,11 +32,13 @@ export default function Home() {
     // Fetch the 5-day / 3 Hour forecast data
     const response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
     const data = await response.json()
-    const weatherForecastResult = data.list // Grab the list of the 5-day / 3 Hour forecast
+    var weatherForecastResult = data.list // Grab the list of the 5-day / 3 Hour forecast
 
     // Format of the Array
     // [Time in EST, temperature, humidity, weather id, weather description]
     const formattedForecast = []
+    // https://stackoverflow.com/questions/65141935/uncaught-in-promise-typeerror-cannot-read-property-length-of-undefined
+    // https://trackjs.com/blog/debugging-cannot-read-property-length-of-undefined/
     for (let i = 0; i < weatherForecastResult.length; i++)
     {
 
@@ -69,13 +71,19 @@ export default function Home() {
           size="lg"
           width="auto"
           />
-          <button onClick={() => {
-          getLatitudeLongitude().then((data) => {
-            DisplayTodaysWeather(data)
-            setButton(true)
-          }
-        )}}>Submit
-        </button>
+          <div className={ styles.buttonWrapper }>
+            <Button 
+            colorScheme='blue'
+            size="lg"
+            onClick={() => {
+              getLatitudeLongitude().then((data) => {
+                DisplayTodaysWeather(data)
+                setButton(true)
+              }
+            )}}>Submit
+            </Button>
+          </div>
+          
         
       </div>
       {
