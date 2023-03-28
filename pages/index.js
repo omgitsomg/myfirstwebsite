@@ -13,6 +13,28 @@ export default function Home() {
   const [todaysweather, setWeather] = useState([]);
   const [buttonActive, setButton] = useState(false);
 
+  const handleKeyDown = (event) => {
+    // If the key pressed is the Enter key
+    // Then submit the input
+    if(event.key === "Enter")
+    {
+      console.log("Inside Function: " + event.key)
+      handleSubmit()
+    }
+  }
+
+  // Get the latitude and the longitude
+  // Call the OpenWeatherMap API
+  // Display the weather
+  const handleSubmit = () => {
+    getLatitudeLongitude().then((data) => {
+      console.log("Debug data: " + data);
+      FiveDayForecastData(data);
+      setButton(true);
+      console.log(zipcode);
+    }
+    );
+  };
     
   async function getLatitudeLongitude() {
     console.log("Before the fetch call", zipcode)
@@ -26,12 +48,11 @@ export default function Home() {
     const longitude = data.lon
     console.log(latitude)
     console.log(longitude)
-    // setZipcode(data)
     console.log("After setZipcode in the getLatitudeLongitude call", zipcode)
     return { latitude, longitude }
   }
 
-  const DisplayTodaysWeather = async(props) => {
+  const FiveDayForecastData = async(props) => {
     let latitude = props.latitude
     let longitude = props.longitude
 
@@ -50,7 +71,6 @@ export default function Home() {
     {
       for (let i = 0; i < weatherForecastResult.length; i++)
       {
-  
         let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
         formattedForecast[i] = [
           localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
@@ -62,7 +82,6 @@ export default function Home() {
         console.log(localFormattedTime)
       }
     }
-    
 
     // todays weather is a 2D array
     setWeather(formattedForecast)
@@ -81,23 +100,19 @@ export default function Home() {
           placeholder="Enter a Zipcode"
           onChange={(newComment) => {
             setZipcode(newComment.target.value)
-            console.log(zipcode)
           }}
           size="lg"
-          width="auto"
-          />
+          width="20rem"
+          onKeyDown={(event) => {
+            handleKeyDown(event)
+          }}
+        />
           <div className={ styles.buttonWrapper }>
             <Button 
             colorScheme='blue'
             size="lg"
-            onClick={() => {
-              getLatitudeLongitude().then((data) => {
-                console.log("Debug data: " + data)
-                DisplayTodaysWeather(data)
-                setButton(true)
-                console.log(zipcode)
-              }
-              )}}>Submit
+            onClick={ handleSubmit }>
+              Submit
             </Button>
           </div>
       </div>
