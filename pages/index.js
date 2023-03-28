@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styles from '../styles/Homepage.module.css'
 import WeatherCard from '../components/WeatherCard'
 import { Input, SimpleGrid, Heading, Button} from '@chakra-ui/react';
+import { inputTheme } from '../components/Input';
 
 export default function Home() {
 
@@ -10,52 +11,62 @@ export default function Home() {
 
   const [zipcode, setZipcode] = useState([]);
   const [todaysweather, setWeather] = useState([]);
-  const [buttonActive, setButton] = useState(false)
+  const [buttonActive, setButton] = useState(false);
 
-
+    
   async function getLatitudeLongitude() {
+    console.log("Before the fetch call", zipcode)
+    // Fetch is an asynchronous function
+    // We use await to wait for the fetch() function to return
+    // Once it returns an object store it in the response and then save the json verson the response into a data variable
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`)
     const data = await response.json()
+    console.log("data ", data)
     const latitude = data.lat
     const longitude = data.lon
     console.log(latitude)
     console.log(longitude)
-    setZipcode(data)
+    // setZipcode(data)
+    console.log("After setZipcode in the getLatitudeLongitude call", zipcode)
     return { latitude, longitude }
   }
 
   const DisplayTodaysWeather = async(props) => {
-    const latitude = props.latitude
-    const longitude = props.longitude
+    let latitude = props.latitude
+    let longitude = props.longitude
 
     // Template String here to replace latitude, longitude, and apiKey with variables
     // Fetch the 5-day / 3 Hour forecast data
-    const response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
-    const data = await response.json()
+    let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+    let data = await response.json()
     var weatherForecastResult = data.list // Grab the list of the 5-day / 3 Hour forecast
 
     // Format of the Array
     // [Time in EST, temperature, humidity, weather id, weather description]
-    const formattedForecast = []
+    let formattedForecast = []
     // https://stackoverflow.com/questions/65141935/uncaught-in-promise-typeerror-cannot-read-property-length-of-undefined
     // https://trackjs.com/blog/debugging-cannot-read-property-length-of-undefined/
-    for (let i = 0; i < weatherForecastResult.length; i++)
+    if(weatherForecastResult && weatherForecastResult.length > 0)
     {
-
-      let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
-      formattedForecast[i] = [
-        localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
-        weatherForecastResult[i].main.temp,
-        weatherForecastResult[i].main.humidity,
-        weatherForecastResult[i].weather[0].id,
-        weatherForecastResult[i].weather[0].description,
-      ]
-      console.log(localFormattedTime)
+      for (let i = 0; i < weatherForecastResult.length; i++)
+      {
+  
+        let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
+        formattedForecast[i] = [
+          localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
+          weatherForecastResult[i].main.temp,
+          weatherForecastResult[i].main.humidity,
+          weatherForecastResult[i].weather[0].id,
+          weatherForecastResult[i].weather[0].description,
+        ]
+        console.log(localFormattedTime)
+      }
     }
+    
 
     // todays weather is a 2D array
     setWeather(formattedForecast)
-    
+    console.log(zipcode)
   }
 
   return (
@@ -63,11 +74,15 @@ export default function Home() {
       <div className={ styles.top }>
         <Heading className={ styles.title }>Weather Forecasting Tool</Heading>
         <Input
-          variant="outline"
+          variant="pill"
+          focusBorderColor="blue.400"
           type="text" 
-          id="zipcode"
+          id="zipcodeValue"
           placeholder="Enter a Zipcode"
-          onChange={(newComment) => setZipcode(newComment.target.value)}
+          onChange={(newComment) => {
+            setZipcode(newComment.target.value)
+            console.log(zipcode)
+          }}
           size="lg"
           width="auto"
           />
@@ -77,14 +92,14 @@ export default function Home() {
             size="lg"
             onClick={() => {
               getLatitudeLongitude().then((data) => {
+                console.log("Debug data: " + data)
                 DisplayTodaysWeather(data)
                 setButton(true)
+                console.log(zipcode)
               }
-            )}}>Submit
+              )}}>Submit
             </Button>
           </div>
-          
-        
       </div>
       {
         buttonActive &&
@@ -96,7 +111,6 @@ export default function Home() {
         }
         </SimpleGrid>
       }
-      
     </div>
   )
 }
