@@ -7,7 +7,11 @@
 }
 
 .buttonWrapper {
-    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.inputWrapper {
+    margin-top: 1.5rem;
 }
 
 .detailContainer {

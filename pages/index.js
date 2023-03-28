@@ -92,21 +92,24 @@ export default function Home() {
     <div>
       <div className={ styles.top }>
         <Heading className={ styles.title }>Weather Forecasting Tool</Heading>
-        <Input
-          variant="pill"
-          focusBorderColor="blue.400"
-          type="text" 
-          id="zipcodeValue"
-          placeholder="Enter a Zipcode"
-          onChange={(newComment) => {
-            setZipcode(newComment.target.value)
-          }}
-          size="lg"
-          width="20rem"
-          onKeyDown={(event) => {
-            handleKeyDown(event)
-          }}
-        />
+        <div className={ styles.inputWrapper }>
+          <Input
+            variant="pill"
+            focusBorderColor="blue.400"
+            type="text" 
+            id="zipcodeValue"
+            placeholder="Enter a Zipcode"
+            onChange={(newComment) => {
+              setZipcode(newComment.target.value)
+            }}
+            size="lg"
+            width="20rem"
+            onKeyDown={(event) => {
+              handleKeyDown(event)
+            }}
+          />
+        </div>
+        
           <div className={ styles.buttonWrapper }>
             <Button 
             colorScheme='blue'
