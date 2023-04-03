@@ -53,7 +53,7 @@ const WeatherCard = (props) => {
             <Divider borderColor='black'/>
             <CardBody>
                 <HStack divider={<StackDivider borderColor='black' />}>
-                    <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ${ styles.iconStyle }`}></i>
+                    <i className={ `wi wi-owm-` + (props.weatherid).toString() + ` ` + `${ styles.iconStyle }`}></i>
                     <VStack align="flex-start"
                         divider={<StackDivider borderColor='black' />}>
                         <Text>Temperature: { fahrenheit } </Text>

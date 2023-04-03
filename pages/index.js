@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import styles from '../styles/Homepage.module.css'
 import WeatherCard from '../components/WeatherCard'
-import { Input, SimpleGrid, Heading, Button} from '@chakra-ui/react';
+import { Input, SimpleGrid, Heading, Button, Center} from '@chakra-ui/react';
 import { inputTheme } from '../components/Input';
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
   const [zipcode, setZipcode] = useState([]);
   const [todaysweather, setWeather] = useState([]);
   const [buttonActive, setButton] = useState(false);
+  var submittedZipcode = 0;
 
   const handleKeyDown = (event) => {
     // If the key pressed is the Enter key
@@ -32,8 +33,8 @@ export default function Home() {
       FiveDayForecastData(data);
       setButton(true);
       console.log(zipcode);
-    }
-    );
+      
+    });
   };
     
   async function getLatitudeLongitude() {
@@ -109,7 +110,6 @@ export default function Home() {
             }}
           />
         </div>
-        
           <div className={ styles.buttonWrapper }>
             <Button 
             colorScheme='blue'
@@ -121,13 +121,18 @@ export default function Home() {
       </div>
       {
         buttonActive &&
-        <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
-        {
-          todaysweather.map(item => (
-            <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
-          ))
-        }
-        </SimpleGrid>
+        <div>
+          <Center bg="gray.200">
+            <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
+          </Center>
+          <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
+          {
+            todaysweather.map(item => (
+              <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
+            ))
+          }
+          </SimpleGrid>
+        </div>
       }
     </div>
   )

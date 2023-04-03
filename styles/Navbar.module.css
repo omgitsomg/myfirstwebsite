@@ -2,19 +2,29 @@
     display: flex;
     align-items: center;
     background: #E0FBFC;
-    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    height: 6vh;
 }
 
 .navbarNavigation {
-    justify-content: space-between;
-    align-items: flex-start;
+    margin-left: auto;
 }
 
-.navbarNavigationItems {
+.navbarNavigationItemsActive {
+    margin: 1.5vw;
+    border-bottom: solid black 2px;
+    border-left: black;
+}
+
+.navbarNavigationItemsInactive {
     margin: 1.5vw;
 }
 
+.navbarListItems {
+    display: inline;
+}
+
 .navbarTitle {
-    margin-left: 3vw;
+    margin-left: 1vw;
     color: #253237;
 }

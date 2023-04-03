@@ -1,3 +1,17 @@
 .container {
-    padding: 0 2rem;
+    display: flex;
+    background-color: #C2DFE3;
+    height: 94vh;
+    justify-content: center;
+    padding-top: 10em;
+}
+
+.bio {
+    display: flex;
+    background-color: rgba(	128, 128, 128, 0.5);
+    height: fit-content;
+}
+
+.aboutMeTextWrapper {
+    padding: 4rem 4rem;
 }
