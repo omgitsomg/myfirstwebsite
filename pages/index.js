@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
 
 import styles from '../styles/Homepage.module.css'
 import WeatherCard from '../components/WeatherCard'
@@ -91,6 +92,9 @@ export default function Home() {
 
   return (
     <div className={ styles.container }>
+      <Head>
+        <title>Weather Forecasting Tool</title>
+      </Head>
       <div className={ styles.top }>
         <Heading className={ styles.title }>Weather Forecasting Tool</Heading>
         <div className={ styles.inputWrapper }>
