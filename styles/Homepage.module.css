@@ -1,13 +1,34 @@
+.container {
+    display: block;
+    height: fit-content;
+    overflow-x: hidden; /* the displayContainer goes off the screen which causes an overflow
+    stop the overflow by hiding it */
+}
+
 .top {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #c2dfe3;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 100%;
+}
+
+.inactiveDisplayContainer {
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.activeDisplayContainer {
+    width: 100vw;
+    min-height: 100vh;
 }
 
 .buttonWrapper {
     margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .inputWrapper {

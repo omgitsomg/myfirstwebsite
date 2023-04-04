@@ -90,7 +90,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className={ styles.container }>
       <div className={ styles.top }>
         <Heading className={ styles.title }>Weather Forecasting Tool</Heading>
         <div className={ styles.inputWrapper }>
@@ -118,22 +118,24 @@ export default function Home() {
               Submit
             </Button>
           </div>
-      </div>
-      {
-        buttonActive &&
-        <div>
-          <Center bg="gray.200">
-            <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
-          </Center>
-          <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
+          <div className={ buttonActive ? styles.activeDisplayContainer : styles.inactiveDisplayContainer}>
           {
-            todaysweather.map(item => (
-              <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
-            ))
+            buttonActive &&
+            <div>
+              <Center bg="gray.200">
+                <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
+              </Center>
+              <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
+              {
+                todaysweather.map(item => (
+                  <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
+                ))
+              }
+              </SimpleGrid>
+            </div>
           }
-          </SimpleGrid>
-        </div>
-      }
+          </div>
+      </div>
     </div>
   )
 }
