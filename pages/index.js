@@ -13,7 +13,6 @@ export default function Home() {
   const [zipcode, setZipcode] = useState([]);
   const [todaysweather, setWeather] = useState([]);
   const [buttonActive, setButton] = useState(false);
-  var submittedZipcode = 0;
 
   const handleKeyDown = (event) => {
     // If the key pressed is the Enter key
