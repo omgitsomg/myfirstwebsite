@@ -31,9 +31,7 @@ export default function Home() {
 
 
   function weatherGrid(zipcode, weatherForecast) {
-    console.log(weatherForecast);
     if(weatherForecast !== undefined &&  weatherForecast.length != 0) {
-      console.log("Debug weathergrid if");
       return <div>
         <Center bg="gray.200">
           <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
@@ -45,7 +43,6 @@ export default function Home() {
         </SimpleGrid>
       </div>;
     } else {
-      console.log("Debug weathergrid else");
       return errorDisplay();
     }
   }
@@ -59,17 +56,10 @@ export default function Home() {
       console.log("Debug data: " + data);
       FiveDayForecastData(data);
       setButton(true);
-      // if(data.statuscode >= 400) {
-      //   console.log(data.statuscode);
-      //   FiveDayForecastData(data)
-      //   setButton(true);
-      // } else {
-      //   FiveDayForecastData(data);
-      //   setButton(true);
-      // }
     });
   };
     
+
   async function getLatitudeLongitude() {
     // Fetch is an asynchronous function
     // We use await to wait for the fetch() function to return
@@ -85,29 +75,11 @@ export default function Home() {
       const longitude = data.lon
       return { latitude, longitude, statuscode: response.status }
     }
-
-
-    // await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`).then(function(response) {
-    //   if(!response.ok) {
-    //     throw new Error("Invalid Zipcode", {cause: response});
-    //   } else {
-    //     const data = response.json();
-    //     console.log("data ", data);
-    //     const latitude = data.lat;
-    //     const longitude = data.lon;
-    //     console.log(latitude);
-    //     console.log(longitude);
-    //     console.log("After setZipcode in the getLatitudeLongitude call", zipcode);
-    //     return { latitude, longitude };
-    //   }
-    // }).catch(function(e) {
-    //   console.log(e);
-    // })
-    
   }
 
-  const FiveDayForecastData = async(props) => {
 
+  const FiveDayForecastData = async(props) => {
+    // Error handling to check if the status code is >= 400
     if(props.statuscode >= 400)
     {
       setWeather([]);
@@ -146,6 +118,7 @@ export default function Home() {
       console.log(zipcode);
   }
   }
+
 
   return (
     <div className={ styles.container }>
