@@ -45,12 +45,6 @@ test("Text Zip Code", async ({ page }) => {
   await page.getByPlaceholder('Enter a Zipcode').fill(zipcode);
   await page.getByPlaceholder("Enter a Zipcode").press("Enter");
   await expect(page.getByRole('heading', { name: 'Zipcode: 23220' })).toHaveText("Zipcode: " + zipcode);
-
-  // await page.goto('http://localhost:3000/');
-  // await page.getByPlaceholder('Enter a Zipcode').click();
-  // await page.getByPlaceholder('Enter a Zipcode').fill('23220');
-  // await page.getByPlaceholder('Enter a Zipcode').press('Enter');
-  // await page.getByRole('heading', { name: 'Zipcode: 23220' }).click();
 })
 
 

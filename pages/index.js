@@ -1,18 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 
 import styles from '../styles/Homepage.module.css'
 import WeatherCard from '../components/WeatherCard'
-import { Input, SimpleGrid, Heading, Button, Center} from '@chakra-ui/react';
-import { inputTheme } from '../components/Input';
+import { Input, SimpleGrid, Heading, Button, Center, Text} from '@chakra-ui/react';
 
 export default function Home() {
-
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-
   const [zipcode, setZipcode] = useState([]);
-  const [todaysweather, setWeather] = useState([]);
+  const [weatherForecast, setWeather] = useState([]);
   const [buttonActive, setButton] = useState(false);
+
 
   const handleKeyDown = (event) => {
     // If the key pressed is the Enter key
@@ -24,6 +22,35 @@ export default function Home() {
     }
   }
 
+
+  function errorDisplay() {
+    return <div>
+      <Text>ERROR</Text>
+    </div>
+  }
+
+
+  function weatherGrid(zipcode, weatherForecast) {
+    console.log(weatherForecast);
+    if(weatherForecast !== undefined &&  weatherForecast.length != 0) {
+      console.log("Debug weathergrid if");
+      return <div>
+        <Center bg="gray.200">
+          <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
+        </Center>
+        <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
+          {weatherForecast.map(item => (
+            <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
+          ))}
+        </SimpleGrid>
+      </div>;
+    } else {
+      console.log("Debug weathergrid else");
+      return errorDisplay();
+    }
+  }
+  
+
   // Get the latitude and the longitude
   // Call the OpenWeatherMap API
   // Display the weather
@@ -32,61 +59,92 @@ export default function Home() {
       console.log("Debug data: " + data);
       FiveDayForecastData(data);
       setButton(true);
-      console.log(zipcode);
-      
+      // if(data.statuscode >= 400) {
+      //   console.log(data.statuscode);
+      //   FiveDayForecastData(data)
+      //   setButton(true);
+      // } else {
+      //   FiveDayForecastData(data);
+      //   setButton(true);
+      // }
     });
   };
     
   async function getLatitudeLongitude() {
-    console.log("Before the fetch call", zipcode)
     // Fetch is an asynchronous function
     // We use await to wait for the fetch() function to return
     // Once it returns an object store it in the response and then save the json verson the response into a data variable
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`)
     const data = await response.json()
-    console.log("data ", data)
-    const latitude = data.lat
-    const longitude = data.lon
-    console.log(latitude)
-    console.log(longitude)
-    console.log("After setZipcode in the getLatitudeLongitude call", zipcode)
-    return { latitude, longitude }
+
+    // Error Handling
+    if(response.status >= 400) {
+      return { latitude: 0, longitude: 0, statuscode: response.status }
+    } else {
+      const latitude = data.lat
+      const longitude = data.lon
+      return { latitude, longitude, statuscode: response.status }
+    }
+
+
+    // await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`).then(function(response) {
+    //   if(!response.ok) {
+    //     throw new Error("Invalid Zipcode", {cause: response});
+    //   } else {
+    //     const data = response.json();
+    //     console.log("data ", data);
+    //     const latitude = data.lat;
+    //     const longitude = data.lon;
+    //     console.log(latitude);
+    //     console.log(longitude);
+    //     console.log("After setZipcode in the getLatitudeLongitude call", zipcode);
+    //     return { latitude, longitude };
+    //   }
+    // }).catch(function(e) {
+    //   console.log(e);
+    // })
+    
   }
 
   const FiveDayForecastData = async(props) => {
-    let latitude = props.latitude
-    let longitude = props.longitude
 
-    // Template String here to replace latitude, longitude, and apiKey with variables
-    // Fetch the 5-day / 3 Hour forecast data
-    let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
-    let data = await response.json()
-    var weatherForecastResult = data.list // Grab the list of the 5-day / 3 Hour forecast
-
-    // Format of the Array
-    // [Time in EST, temperature, humidity, weather id, weather description]
-    let formattedForecast = []
-    // https://stackoverflow.com/questions/65141935/uncaught-in-promise-typeerror-cannot-read-property-length-of-undefined
-    // https://trackjs.com/blog/debugging-cannot-read-property-length-of-undefined/
-    if(weatherForecastResult && weatherForecastResult.length > 0)
+    if(props.statuscode >= 400)
     {
-      for (let i = 0; i < weatherForecastResult.length; i++)
-      {
-        let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
-        formattedForecast[i] = [
-          localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
-          weatherForecastResult[i].main.temp,
-          weatherForecastResult[i].main.humidity,
-          weatherForecastResult[i].weather[0].id,
-          weatherForecastResult[i].weather[0].description,
-        ]
-        console.log(localFormattedTime)
-      }
-    }
+      setWeather([]);
+    } else {
+      let latitude = props.latitude;
+      let longitude = props.longitude;
 
-    // todays weather is a 2D array
-    setWeather(formattedForecast)
-    console.log(zipcode)
+      // Template String here to replace latitude, longitude, and apiKey with variables
+      // Fetch the 5-day / 3 Hour forecast data
+      let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+      let data = await response.json();
+      var weatherForecastResult = data.list; // Grab the list of the 5-day / 3 Hour forecast
+
+      // Format of the Array
+      // [Time in EST, temperature, humidity, weather id, weather description]
+      let formattedForecast = [];
+      // https://stackoverflow.com/questions/65141935/uncaught-in-promise-typeerror-cannot-read-property-length-of-undefined
+      // https://trackjs.com/blog/debugging-cannot-read-property-length-of-undefined/
+      if(weatherForecastResult && weatherForecastResult.length > 0)
+      {
+        for (let i = 0; i < weatherForecastResult.length; i++)
+        {
+          let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
+          formattedForecast[i] = [
+            localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
+            weatherForecastResult[i].main.temp,
+            weatherForecastResult[i].main.humidity,
+            weatherForecastResult[i].weather[0].id,
+            weatherForecastResult[i].weather[0].description,
+          ]
+          console.log(localFormattedTime);
+        }
+      }
+      // todays weather is a 2D array
+      setWeather(formattedForecast);
+      console.log(zipcode);
+  }
   }
 
   return (
@@ -124,23 +182,10 @@ export default function Home() {
           <div className={ buttonActive ? styles.activeDisplayContainer : styles.inactiveDisplayContainer}>
           {
             buttonActive &&
-            <div>
-              <Center bg="gray.200">
-                <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
-              </Center>
-              <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
-              {
-                todaysweather.map(item => (
-                  <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
-                ))
-              }
-              </SimpleGrid>
-            </div>
+            weatherGrid(zipcode, weatherForecast)
           }
           </div>
       </div>
     </div>
   )
 }
-
-// {/* Cards of the weather forecast for each 3-hour interval */}
