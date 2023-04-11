@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import styles from '../styles/Homepage.module.css'
@@ -8,6 +8,7 @@ import { Input, SimpleGrid, Heading, Button, Center, Text} from '@chakra-ui/reac
 export default function Home() {
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const [zipcode, setZipcode] = useState([]);
+  const [city, setCity] = useState([]);
   const [weatherForecast, setWeather] = useState([]);
   const [buttonActive, setButton] = useState(false);
 
@@ -25,7 +26,9 @@ export default function Home() {
 
   function errorDisplay() {
     return <div>
-      <Text>ERROR</Text>
+      <Center>
+        <Text fontSize="3xl">Please Enter a Valid United States Zipcode</Text>
+      </Center>
     </div>
   }
 
@@ -34,7 +37,7 @@ export default function Home() {
     if(weatherForecast !== undefined &&  weatherForecast.length != 0) {
       return <div>
         <Center bg="gray.200">
-          <Heading mt={12}>{"Zipcode: " + zipcode} </Heading>
+          <Heading mt={12}>{"Zipcode: " + zipcode + ", City: " + city}</Heading>
         </Center>
         <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
           {weatherForecast.map(item => (
@@ -91,8 +94,15 @@ export default function Home() {
       // Fetch the 5-day / 3 Hour forecast data
       let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
       let data = await response.json();
-      var weatherForecastResult = data.list; // Grab the list of the 5-day / 3 Hour forecast
 
+      // the list part of the JSON contains the list of the weather forecast for the next 5 days in 3-hour intervals
+      var weatherForecastResult = data.list;
+      var newCity = data.city.name;
+      setCity(newCity);
+
+      console.log("data in fivedayforecastdata: ", data)
+      console.log("weatherForecastResult: ", weatherForecastResult)
+      
       // Format of the Array
       // [Time in EST, temperature, humidity, weather id, weather description]
       let formattedForecast = [];
@@ -102,6 +112,7 @@ export default function Home() {
       {
         for (let i = 0; i < weatherForecastResult.length; i++)
         {
+          // dt_txt is the date time in text
           let localFormattedTime = new Date(weatherForecastResult[i].dt_txt)
           formattedForecast[i] = [
             localFormattedTime.toLocaleDateString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }), // Set the language to english and show the hour and minute
