@@ -67,7 +67,7 @@ export default function Home() {
     // Fetch is an asynchronous function
     // We use await to wait for the fetch() function to return
     // Once it returns an object store it in the response and then save the json verson the response into a data variable
-    const response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`)
+    const response = await fetch(`https://api.openweathermap.org/geo/1.0/zip?zip=${zipcode},US&appid=${apiKey}`)
     const data = await response.json()
 
     // Error Handling
@@ -92,7 +92,7 @@ export default function Home() {
 
       // Template String here to replace latitude, longitude, and apiKey with variables
       // Fetch the 5-day / 3 Hour forecast data
-      let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
+      let response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`);
       let data = await response.json();
 
       // the list part of the JSON contains the list of the weather forecast for the next 5 days in 3-hour intervals
