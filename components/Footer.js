@@ -1,5 +1,5 @@
 import styles from '../styles/Footer.module.css'
-import { Text } from '@chakra-ui/react';
+import { Link, Text } from '@chakra-ui/react';
 
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -16,16 +16,16 @@ const Footer = () => {
                 </div>
                 <ul style={ { marginLeft: "auto" } }>
                     <li style={ { listStyleType: "none", paddingBottom:"0.5em" } }>
-                        <a href="/" className={ styles.textStyle }>Home</a>
+                        <Link href="/" className={ styles.textStyle }>Home</Link>
                     </li>
                     <li style={ { listStyleType:"none", paddingBottom:"0.5em" } }>
-                        <a href="/about" className={ styles.textStyle }>About</a>
+                        <Link href="/about" className={ styles.textStyle }>About</Link>
                     </li>
                     <li style={ { listStyleType:"none", paddingBottom:"0.5em" } }>
-                        <Text textDecoration="underline"><a className={ styles.textStyle } href="https://github.com/omgitsomg">Github</a></Text>
+                        <Text textDecoration="underline"><Link className={ styles.textStyle } href="https://github.com/omgitsomg">Github</Link></Text>
                     </li>
                     <li style={ { listStyleType:"none", paddingBottom:"0.5em" } }>
-                        <Text textDecoration="underline"><a className={ styles.textStyle } href="https://www.linkedin.com/in/kevin-ly-7446941a2/">LinkedIn</a></Text>
+                        <Text textDecoration="underline"><Link className={ styles.textStyle } href="https://www.linkedin.com/in/kevin-ly-7446941a2/">LinkedIn</Link></Text>
                     </li>
                 </ul>
                 

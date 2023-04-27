@@ -2,6 +2,7 @@ import styles from '../styles/Navbar.module.css'
 
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 const Navbar = () => {
@@ -16,13 +17,13 @@ const Navbar = () => {
                     height={32}
                     width={32}
                 />
-                <h1 className={ styles.navbarTitle }> <a href="/">Weather Forecast</a> </h1>
+                <h1 className={ styles.navbarTitle }> <Link href="/">Weather Forecast</Link> </h1>
                 <ul className={ styles.navbarNavigation }>
                     <li className={ styles.navbarListItems }>
-                        <a className={ router.pathname == "/" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive} href="/">Home</a>
+                        <Link className={ router.pathname == "/" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive} href="/">Home</Link>
                     </li>
                     <li className={ styles.navbarListItems }>
-                        <a className={ router.pathname == "/about" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive } href="/about">About</a>
+                        <Link className={ router.pathname == "/about" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive } href="/about">About</Link>
                     </li>
                 </ul>
             </nav>

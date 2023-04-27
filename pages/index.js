@@ -41,7 +41,7 @@ export default function Home() {
         </Center>
         <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
           {weatherForecast.map(item => (
-            <WeatherCard date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
+            <WeatherCard key={item.id} date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
           ))}
         </SimpleGrid>
       </div>;
