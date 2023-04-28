@@ -20,10 +20,14 @@ const Navbar = () => {
                 <h1 className={ styles.navbarTitle }> <Link href="/">Weather Forecast</Link> </h1>
                 <ul className={ styles.navbarNavigation }>
                     <li className={ styles.navbarListItems }>
-                        <Link className={ router.pathname == "/" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive} href="/">Home</Link>
+                        <Link href="/">
+                            <a className={ router.pathname == "/" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive} >Home</a>
+                        </Link>
                     </li>
                     <li className={ styles.navbarListItems }>
-                        <Link className={ router.pathname == "/about" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive } href="/about">About</Link>
+                        <Link href="/about">
+                            <a className={ router.pathname == "/about" ? styles.navbarNavigationItemsActive : styles.navbarNavigationItemsInactive } >About</a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
