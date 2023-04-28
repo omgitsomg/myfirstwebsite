@@ -6,7 +6,7 @@ import WeatherCard from '../components/WeatherCard'
 import { Input, SimpleGrid, Heading, Button, Center, Text} from '@chakra-ui/react';
 
 export default function Home() {
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const apiKey = NEXT_PUBLIC_API_KEY;
   const [zipcode, setZipcode] = useState([]);
   const [city, setCity] = useState([]);
   const [weatherForecast, setWeather] = useState([]);
