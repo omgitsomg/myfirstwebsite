@@ -7,7 +7,7 @@ const { test, expect } = require('@playwright/test');
 // Before each test
 // Go to the website's url
 test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+  await page.goto("https://myfirstwebsite-5pxmllxki-omgitsomg.vercel.app");
 });
 
 
@@ -44,14 +44,14 @@ test("Text Zip Code", async ({ page }) => {
   await page.getByPlaceholder('Enter a Zipcode').click();
   await page.getByPlaceholder('Enter a Zipcode').fill(zipcode);
   await page.getByPlaceholder("Enter a Zipcode").press("Enter");
-  await expect(page.getByRole('heading', { name: 'Zipcode: 23220' })).toHaveText("Zipcode: " + zipcode);
+  await expect(page.getByRole('heading', { name: 'Zipcode: 23220, City: Richmond' })).toHaveText("Zipcode: " + zipcode + ",  City: Richmond");
 })
 
 
 // Test: Clicking the about 
 test("about page", async ({ page }) => {
   await page.getByRole('navigation').getByRole('link', { name: 'About' }).click();
-  await expect(page).toHaveURL("http://localhost:3000/about")
+  await expect(page).toHaveURL("https://myfirstwebsite-5pxmllxki-omgitsomg.vercel.app/about")
 })
 
 

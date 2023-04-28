@@ -6,7 +6,7 @@ const { test, expect } = require('@playwright/test');
 // Go to the website's url
 // Click on the about link in the navbar
 test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:3000/");
+    await page.goto("https://myfirstwebsite-5pxmllxki-omgitsomg.vercel.app");
     await page.getByRole('navigation').getByRole('link', { name: 'About' }).click();
 });
 
