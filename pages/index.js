@@ -35,11 +35,11 @@ export default function Home() {
 
   function weatherGrid(zipcode, weatherForecast) {
     if(weatherForecast !== undefined &&  weatherForecast.length != 0) {
-      return <div>
+      return <div className={styles.simpleGridWrapper}>
         <Center bg="gray.200">
           <Heading mt={12}>{"Zipcode: " + zipcode + ", City: " + city}</Heading>
         </Center>
-        <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 16em" bg="gray.200">
+        <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 3em" bg="gray.200">
           {weatherForecast.map(item => (
             <WeatherCard key={item.id} date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
           ))}

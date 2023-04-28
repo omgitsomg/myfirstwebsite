@@ -16,14 +16,22 @@
     height: 100%;
 }
 
-.inactiveDisplayContainer {
+.simpleGridWrapper {
+    display: flex;
+    flex-direction: column;
     width: 100vw;
+}
+
+.inactiveDisplayContainer {
+    display: flex;
     min-height: 100vh;
+    justify-self: center;
 }
 
 .activeDisplayContainer {
-    width: 100vw;
+    display: flex;
     min-height: 100vh;
+    justify-content: center;
 }
 
 .buttonWrapper {
