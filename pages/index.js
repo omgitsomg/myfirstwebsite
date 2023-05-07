@@ -37,9 +37,9 @@ export default function Home() {
     if(weatherForecast !== undefined &&  weatherForecast.length != 0) {
       return <div className={styles.simpleGridWrapper}>
         <Center bg="gray.200">
-          <Heading mt={12}>{"Zipcode: " + zipcode + ", City: " + city}</Heading>
+          <Heading mt={12} size="md">{"Zipcode: " + zipcode + ", City: " + city}</Heading>
         </Center>
-        <SimpleGrid minChildWidth='20rem' spacing={6} padding="4rem 3em" bg="gray.200">
+        <SimpleGrid minChildWidth='20em' spacing={6} padding="4em 3em" bg="gray.200">
           {weatherForecast.map(item => (
             <WeatherCard key={item.id} date={item[0]} temperature={item[1]} humidity={item[2]} weatherid={item[3]} weather_desc={item[4]} />
           ))}
@@ -127,7 +127,7 @@ export default function Home() {
       // todays weather is a 2D array
       setWeather(formattedForecast);
       console.log(zipcode);
-  }
+    }
   }
 
 
@@ -137,7 +137,7 @@ export default function Home() {
         <title>Weather Forecasting Tool</title>
       </Head>
       <div className={ styles.top }>
-        <Heading className={ styles.title }>Weather Forecasting Tool</Heading>
+        <Heading size="lg">Weather Forecasting Tool</Heading>
         <div className={ styles.inputWrapper }>
           <Input
             variant="pill"

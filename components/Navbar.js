@@ -4,9 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-
 const Navbar = () => {
-
     const router = useRouter();
 
     return (
@@ -16,6 +14,7 @@ const Navbar = () => {
                     src="/sun.png"
                     height={32}
                     width={32}
+                    alt='SVG of the sun'
                 />
                 <h1 className={ styles.navbarTitle }> <Link href="/">Weather Forecast</Link> </h1>
                 <ul className={ styles.navbarNavigation }>

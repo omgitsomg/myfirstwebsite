@@ -48,7 +48,7 @@ const WeatherCard = (props) => {
     return (
         <Card boxShadow="xl" bgGradient={`linear(to-br, red.${redOpacity}, blue.${blueOpacity})`}>
             <CardHeader>
-                <Heading size="md"> { props.date } </Heading>
+                <Text> { props.date } </Text>
             </CardHeader>
             <Divider borderColor='black'/>
             <CardBody>

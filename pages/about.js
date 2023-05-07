@@ -6,7 +6,7 @@ const about = () => {
     return (
         <div className={ styles.container }>
             <div className={ styles.bio }>
-                <Image src="/fullportrait.jpg" height="55vh"></Image>
+                <Image src="/fullportrait.jpg" height="55vh" alt="Picture of Kevin Ly"></Image>
                 <div className={ styles.aboutMeTextWrapper }>
                     <Heading>Hey everyone, I&apos;m Kevin Ly.</Heading>
                     <Text fontSize="3xl" width="20em" whiteSpace="normal" mb="6">I am a senior at VCU majoring in computer science 
