@@ -14,10 +14,6 @@ a {
   box-sizing: border-box;
 }
 
-h1.Link{
-  font-size: 3rem;
-}
-
 /* @media acts as a dynamic way to manipulate pages
    in this code below the program checks IF the user's computer is set to dark mode
    and then all the selectors beneath it will be affected and used*/
@@ -35,5 +31,12 @@ h1.Link{
   /* Body affects all*/
   body {
     font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 1919px) {
+  /* Body affects all*/
+  body {
+    font-size: 1.2rem;
   }
 }
