@@ -58,7 +58,7 @@ const WeatherCard = (props) => {
                         divider={<StackDivider borderColor='black' />}>
                         <Text>Temperature: { fahrenheit } </Text>
                         <Text>Humidity: { props.humidity } </Text>
-                        <Text>Weather description: { props.weather_desc } </Text>
+                        <Text>{ props.weather_desc } </Text>
                     </VStack>
                 </HStack>
             </CardBody>

@@ -3,6 +3,7 @@ import styles from '../styles/Navbar.module.css'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Heading } from '@chakra-ui/react';
 
 const Navbar = () => {
     const router = useRouter();
@@ -16,7 +17,7 @@ const Navbar = () => {
                     width={32}
                     alt='SVG of the sun'
                 />
-                <h1 className={ styles.navbarTitle }> <Link href="/">Weather Forecast</Link> </h1>
+                <h1> <Link href="/">Weather Forecast</Link> </h1>
                 <ul className={ styles.navbarNavigation }>
                     <li className={ styles.navbarListItems }>
                         <Link href="/">

@@ -1,11 +1,3 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    border-width: 2px;
-    border-color:blue;
-    padding: 1rem;
-}
-
 /* https://stackoverflow.com/questions/16858926/class-names-concatenated-or-separated-by-a-space */
 .detailStyle[open] .summaryStyle:after {
     content: "-";
@@ -17,7 +9,13 @@
 
 @media (max-width: 430px) {
   .iconStyle {
-    font-size: 2rem;
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 1919px) {
+  .iconStyle {
+    font-size: 5rem;
   }
 }
 

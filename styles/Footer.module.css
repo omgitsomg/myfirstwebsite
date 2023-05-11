@@ -1,10 +1,11 @@
 .container {
     background-color: rgb(32, 32, 32);
+    padding: 2em 2em;
 }
 
 .bodyContainer {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -14,6 +15,60 @@
 
 .textStyle {
     color: whitesmoke;
+}
+
+.textStyle:hover {
     list-style-type: none;
     text-decoration: underline;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+}
+
+.logoBox {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 100px;
+    background-color: white;
+    margin-bottom: 0.3em;
+}
+
+@media (max-width: 430px) {
+    .headerStyle {
+      font-size: 0.8rem;
+      white-space: normal;
+    }
+
+    .textStyle {
+        font-size: 0.6rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        background-color: rgb(32, 32, 32);
+        padding: 2em 20em;
+    }
+
+    .bodyContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .headerStyle {
+      font-size: 1.5rem;
+      white-space: normal;
+      color: aqua;
+      width: 15em;
+    }
+
+    .textStyle {
+        font-size: 1rem;
+        color: aqua;
+    }
 }
